@@ -1,5 +1,10 @@
 package com.neoton.effective_java;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  *
  * Static factory method instead of constructor
@@ -26,63 +31,41 @@ package com.neoton.effective_java;
  */
 public class Item1 {
 
-    public static void main(String[] args) {
-        // Usage of static factory methods kept in separate factory-like class
-        Person averageUsaMan = Persons.getAverageUsaMan();
-        Person averageDutchWoman = Persons.getAverageDutchWoman();
+    public static void main(String[] args) throws InstantiationException, IllegalAccessException {
+        Coffee coffee = Coffee.valueOf("Some very delicious coffee...");
+        Coffee luwak = Coffee.newType(Luwak.class);
     }
 }
 
-enum Sex {
-    MALE, FEMALE
-}
+class Coffee {
 
-class Person {
+    private String name;
 
-    private Sex sex;
-    private int age;
-    private int height;
-
-    public Sex getSex() {
-        return sex;
+    @StaticFactoryMethod
+    public static Coffee valueOf(String coffeeName) {
+        Coffee coffee = new Coffee();
+        coffee.setName(coffeeName);
+        return coffee;
     }
 
-    public void setSex(Sex sex) {
-        this.sex = sex;
+    @StaticFactoryMethod
+    public static Coffee newType(Class<? extends Coffee> subtype) throws IllegalAccessException, InstantiationException {
+        return subtype.newInstance();
     }
 
-    public int getAge() {
-        return age;
+    public String getName() {
+        return name;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
+    public void setName(String name) {
+        this.name = name;
     }
 }
 
-class Persons {
+class Luwak extends Coffee {
+}
 
-    public static Person getAverageUsaMan() {
-        Person averageUsaMan = new Person();
-        averageUsaMan.setSex(Sex.MALE);
-        averageUsaMan.setAge(34);
-        averageUsaMan.setHeight(176);
-        return averageUsaMan;
-    }
-
-    public static Person getAverageDutchWoman() {
-        Person averageDutchWoman = new Person();
-        averageDutchWoman.setSex(Sex.FEMALE);
-        averageDutchWoman.setAge(32);
-        averageDutchWoman.setHeight(170);
-        return averageDutchWoman;
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+@interface StaticFactoryMethod {
 }
