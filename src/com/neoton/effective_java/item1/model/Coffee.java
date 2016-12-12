@@ -1,4 +1,4 @@
-package com.neoton.effective_java.item1;
+package com.neoton.effective_java.item1.model;
 
 public class Coffee {
 

@@ -1,4 +1,4 @@
-package com.neoton.effective_java.item1;
+package com.neoton.effective_java.item1.model;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

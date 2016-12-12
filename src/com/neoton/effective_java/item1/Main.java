@@ -1,5 +1,9 @@
 package com.neoton.effective_java.item1;
 
+import com.neoton.effective_java.item1.model.Coffee;
+import com.neoton.effective_java.item1.model.Luwak;
+import com.neoton.effective_java.item1.model.StaticFactoryMethod;
+
 /**
  * Static factory method instead of constructor
  * <p>
@@ -12,7 +16,7 @@ package com.neoton.effective_java.item1;
  *  - classes without public/protected/package constructors can't be subclassed (somewhat beneficial as the intent
  * would be to use composition instead of inheritance)
  *  - static factory methods are not distinguishable from other methods in class (one of the possible solutions is to
- * use {@link com.neoton.effective_java.item1.StaticFactoryMethod}) annotation as a pointer
+ * use {@link StaticFactoryMethod}) annotation as a pointer
  * <p>
  * Naming examples:
  *  - valueOf -> mainly used for type conversions maintaining the same values
